@@ -1,7 +1,35 @@
+* {
+    box-sizing: border-box;
+  }
+
 .search-form {
-    padding: 5px 0;
-    text-align: center;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
     background-color: #39597B;
+}
+
+.search-form input {
+    height: 30px;
+    width: 230px;
+    padding: 7px;
+    font-size: 14px;
+    border: none;
+}
+
+.search-form input:focus {
+    outline: none;
+}
+
+.search-form button {
+    width: 50px;
+    font-size: 12px;
+    border: none;
+}
+
+.search-form button:hover {
+    background-color: grey;
+    color: white;
 }
 
 .gallery {
@@ -40,9 +68,13 @@
     margin: 10px 0;
 }
 
+.div {
+    text-align: center;
+}
+
 .load-more {
     visibility: hidden;
-    margin : 0 0 20px 20px;
+    margin : 0 0 20px 35px; 
 }
 
 

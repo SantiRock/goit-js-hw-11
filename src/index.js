@@ -2,6 +2,7 @@ import Notiflix from 'notiflix';
 import axios from 'axios';
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
+import InfiniteScroll from 'infinite-scroll';
 
 const input = document.querySelector("input");
 const submitBtn = document.querySelector("button");
@@ -65,6 +66,7 @@ async function searchMore(word) {
             }
         });
         renderMore(response);
+       
     } catch (error) {
         console.log(error);
     }
@@ -99,6 +101,10 @@ function renderMore(response) {
         Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
     } else {
         renderImages(response);
+        window.scrollBy({
+            top: 500,
+            behavior: "smooth",
+          });
     }
 }
 
