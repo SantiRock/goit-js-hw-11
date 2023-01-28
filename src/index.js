@@ -18,6 +18,7 @@ let lightbox = new SimpleLightbox('.gallery a', { gallery });
 submitBtn.addEventListener("click", (event) => {
     event.preventDefault();
     const keyword = input.value.toLowerCase();
+    page = 1;
     search(keyword)
 });
 
@@ -78,14 +79,17 @@ function searchResponse(response) {
     gallery.innerHTML = "";
     images = response.data.hits;
     let imagesText = images.toString();
+    let totalHits = response.data.totalHits;
     if (imagesText === "" || input.value === "") {
         Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
         loadMore.style.visibility = "hidden";
         return;
-    } else {
-        let totalHits = response.data.totalHits;
+    } else if (response.data.totalHits < perPage) {
         Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
-        renderImages(response);
+        renderImages();
+    } else {
+        Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+        renderImages();
         loadMore.style.visibility = "visible";
     };  
 }
@@ -96,11 +100,15 @@ function renderMore(response) {
     let totalPages = totalHits/perPage;
 
     if (page > totalPages) {
-        renderImages(response);
+        renderImages();
         loadMore.style.visibility = "hidden";
         Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
+        window.scrollBy({
+            top: 500,
+            behavior: "smooth",
+          });
     } else {
-        renderImages(response);
+        renderImages();
         window.scrollBy({
             top: 500,
             behavior: "smooth",
@@ -108,7 +116,7 @@ function renderMore(response) {
     }
 }
 
-function renderImages(response) {
+function renderImages() {
     images.forEach(image => {
         let webformatURL = image.webformatURL;
         let largeImageURL = image.largeImageURL;
