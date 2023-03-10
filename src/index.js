@@ -2,7 +2,6 @@ import Notiflix from 'notiflix';
 import axios from 'axios';
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
-import InfiniteScroll from 'infinite-scroll';
 
 const input = document.querySelector("input");
 const submitBtn = document.querySelector("button");
